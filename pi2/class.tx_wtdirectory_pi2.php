@@ -151,9 +151,9 @@ class tx_wtdirectory_pi2 extends tslib_pibase {
 		$data[$GLOBALS['TSFE']->id]= $selected;
 		$GLOBALS['TSFE']->fe_user->setKey('ses','tx_wtdirectory_pi2',$data);
 
-		if ($this->conf['debug.']['drillDown.']['piVars']==1) 	t3lib_div::debug($this->piVars,'piVars');
-		if ($this->conf['debug.']['drillDown.']['conf']==1) 	t3lib_div::debug($this->conf,'conf');
-		if ($this->conf['debug.']['drillDown.']['getKey']==1) 	t3lib_div::debug($GLOBALS['TSFE']->fe_user->getKey('ses','tx_wtdirectory_pi2'));
+		if ($this->conf['debug.']['drillDown.']['piVars']==1) 	t3lib_utility_debug($this->piVars,'piVars');
+		if ($this->conf['debug.']['drillDown.']['conf']==1) 	t3lib_utility_debug($this->conf,'conf');
+		if ($this->conf['debug.']['drillDown.']['getKey']==1) 	t3lib_utility_debug($GLOBALS['TSFE']->fe_user->getKey('ses','tx_wtdirectory_pi2'));
 
 
 		$rootCat = $this->conf['drillDown.']['root'];
@@ -463,7 +463,6 @@ class tx_wtdirectory_pi2 extends tslib_pibase {
 								INNER JOIN tt_address_group ON tt_address_group_mm.uid_foreign = tt_address_group.uid
  								WHERE tt_address_group_mm.uid_foreign = ' . $additionalCatID . ')';
 				}
-				#t3lib_div::debug($SELECT . $FROM . $WHERE);
 				$res = $GLOBALS['TYPO3_DB']->sql_query($SELECT . $FROM . $WHERE );
 			}
 			else {
@@ -524,10 +523,10 @@ class tx_wtdirectory_pi2 extends tslib_pibase {
 			$pluginPiVars['catfilterOR']= $this->filters['catfilterOR'];
 		}
 
-		if ($this->conf['debug.']['beforemain.']['piVars']==1) t3lib_div::debug($this->piVars);
-		if ($this->conf['debug.']['beforemain.']['filters']==1) t3lib_div::debug($this->filters);
-		if ($this->conf['debug.']['beforemain.']['pluginPiVars']==1) t3lib_div::debug($pluginPiVars);
-		if ($this->conf['debug.']['beforemain.']['conf']==1) t3lib_div::debug($this->conf);
+		if ($this->conf['debug.']['beforemain.']['piVars']==1)          t3lib_utility_debug($this->piVars);
+		if ($this->conf['debug.']['beforemain.']['filters']==1)         t3lib_utility_debug($this->filters);
+		if ($this->conf['debug.']['beforemain.']['pluginPiVars']==1)    t3lib_utility_debug($pluginPiVars);
+		if ($this->conf['debug.']['beforemain.']['conf']==1)            t3lib_utility_debug($this->conf);
 	}
 
 	/*
@@ -547,9 +546,9 @@ class tx_wtdirectory_pi2 extends tslib_pibase {
 			// process each filter
 			foreach ($pageFilters[$GLOBALS['TSFE']->id.'.'] as $filter=>$value) {
 				$this->filters[$filter][]= $value;
-			}
-		}
-	}
+}
+}
+}
 }
 
 

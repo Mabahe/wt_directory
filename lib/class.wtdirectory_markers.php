@@ -123,7 +123,7 @@ class wtdirectory_markers extends tslib_pibase {
 							$i++; // increase counter
 							$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArrayAll); // Add
 						} else {
-#							t3lib_div::debug($key);
+#							t3lib_utility_debug::debug($key);
 						}
 					}
 				}

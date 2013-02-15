@@ -69,10 +69,10 @@ class tx_wtdirectory_pi1_list extends tslib_pibase {
 		$this->languid = $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] ? $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] : 0; // current language uid
 
 		if ($this->conf['debug.']['beforemain.']['piVars'] == 1) {
-			t3lib_div::debug($this->piVars, 'wt_directory: piVars');
+            t3lib_utility_debug($this->piVars, 'wt_directory: piVars');
 		}
 		if ($this->conf['debug.']['beforemain.']['conf'] == 1) {
-			t3lib_div::debug($this->conf, 'wt_directory: TypoScript');
+            t3lib_utility_debug($this->conf, 'wt_directory: TypoScript');
 		}
 
 		if (!$this->pi_getFFvalue($this->conf, 'shownone', 'mainconfig') || count($this->piVars) > 0) { // default mode (show entries at the beginning)
@@ -95,7 +95,7 @@ class tx_wtdirectory_pi1_list extends tslib_pibase {
 			);
 
 			if ($this->conf['debug.']['beforemain.']['sql'] == 1) {
-				t3lib_div::debug($GLOBALS['TYPO3_DB']->debug_lastBuiltQuery);
+                t3lib_utility_debug($GLOBALS['TYPO3_DB']->debug_lastBuiltQuery);
 			}
 			$num = $GLOBALS['TYPO3_DB']->sql_num_rows($res); // numbers of all entries
 			if ($res) { // If there is a result

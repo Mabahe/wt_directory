@@ -617,7 +617,7 @@ class wtdirectory_div extends tslib_pibase {
 		for ($i = 0; $i < count($cats); $i++) {
 			$string .= 'group' . $cats[$i] . ',';
 		}
-		return t3lib_div::rm_endcomma($string);
+		return rtrim($string);
 	}
 
 	/**

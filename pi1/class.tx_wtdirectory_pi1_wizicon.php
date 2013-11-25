@@ -43,11 +43,6 @@ class tx_wtdirectory_pi1_wizicon {
 	 * @param array $wizardItems: The wizard items
 	 * @return Modified array with wizard items
 	 */
-
-	public function __construct() {
-		$this->getLlxmlParser();
-	}
-
 	function proc($wizardItems) {
 		global $LANG;
 
@@ -69,28 +64,26 @@ class tx_wtdirectory_pi1_wizicon {
 	 * @return array The array with language labels
 	 */
 	function includeLocalLang() {
-        $llFile = t3lib_extMgm::extPath('wt_directory').'locallang.xml';
-        if (t3lib_div::compat_version	('4.5')) {
-            $LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
-            return $LOCAL_LANG;
-        }
-		$LOCAL_LANG = $this->llxmlParser->getParsedData($llFile, $GLOBALS['LANG']->lang, 'utf-8');
-		return $LOCAL_LANG;
-	}
+		switch (TYPO3_branch) {
+			case '4.5':
+				$llFile     = t3lib_extMgm::extPath('wt_directory').'locallang.xml';
+				$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
+				break;
+			case '4.6':
+			case '4.7':
+				$llFile       = t3lib_extMgm::extPath('wt_directory').'locallang.xml';
+				$llFileParser = t3lib_div::makeInstance('t3lib_l10n_parser_Llxml');
+				$LOCAL_LANG   = $llFileParser->getParsedData($llFile, $GLOBALS['LANG']->lang);
+				break;
+			case '6.0':
+			default:
+				$llFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('wt_directory') . 'locallang.xml';
 
-	/**
-	 * @return t3lib_l10n_parser_Llxml
-	 */
-	protected function getLlxmlParser() {
-        if (t3lib_div::compat_version	('4.5')) {
-            // do nothing, because
-            return true;
-        }
-
-		if (!isset($this->llxmlParser)) {
-			$this->llxmlParser = t3lib_div::makeInstance('t3lib_l10n_parser_Llxml');
+				$localLanguageParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Parser\\LocallangXmlParser');
+				$LOCAL_LANG = $localLanguageParser->getParsedData($llFile, $GLOBALS['LANG']->lang);
 		}
-		return $this->llxmlParser;
+
+		return $LOCAL_LANG;
 	}
 
 }
